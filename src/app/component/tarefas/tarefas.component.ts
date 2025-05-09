@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tarefas',
@@ -32,6 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    FormsModule,
   ],
   templateUrl: './tarefas.component.html',
   styleUrls: ['./tarefas.component.css'],
@@ -71,8 +73,7 @@ export class TarefasComponent implements OnInit {
     dialogRef.afterClosed().subscribe((tarefaEditada) => {
       if (tarefaEditada) {
         this.tarefasService.putDados(tarefaEditada.id, tarefaEditada).subscribe(() => {
-          console.log(`Tarefa "${tarefaEditada.nome}" atualizada com sucesso.`);
-          this.buscarListaTarefas(); // Atualiza a lista de tarefas
+          this.buscarListaTarefas();
         });
       }
     });
@@ -81,19 +82,16 @@ export class TarefasComponent implements OnInit {
   excluirTarefa(tarefa: any) {
     if (confirm(`Tem certeza de que deseja excluir a tarefa "${tarefa.nome}"?`)) {
       this.tarefasService.deleteTarefa(tarefa.id).subscribe(() => {
-        console.log(`Tarefa "${tarefa.nome}" excluída com sucesso.`);
-        this.buscarListaTarefas(); // Atualiza a lista de tarefas
+        this.buscarListaTarefas(); 
       });
     }
   }
 
   marcarComoConcluida(tarefa: any) {
-    console.log('Marcar como concluída:', tarefa);
     tarefa.situacao = 'CONCLUÍDA';
   }
 
   marcarComoPendente(tarefa: any) {
-    console.log('Marcar como pendente:', tarefa);
     tarefa.situacao = 'PENDENTE';
   }
 
@@ -104,10 +102,8 @@ export class TarefasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((novaTarefa) => {
       if (novaTarefa) {
-        console.log('Nova tarefa:', novaTarefa);
-        // Aqui você pode enviar a nova tarefa para o backend usando o TarefasService
         this.tarefasService.postDados(novaTarefa).subscribe(() => {
-          this.buscarListaTarefas(); // Atualiza a lista de tarefas
+          this.buscarListaTarefas(); 
         });
       }
     });
