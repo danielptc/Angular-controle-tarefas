@@ -20,6 +20,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tarefas',
@@ -35,6 +37,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     MatFormFieldModule,
     MatCheckboxModule,
     FormsModule,
+    MatSnackBarModule,
   ],
   templateUrl: './tarefas.component.html',
   styleUrls: ['./tarefas.component.css'],
@@ -46,7 +49,11 @@ export class TarefasComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private tarefasService: TarefasService) {}
+  constructor(
+    private dialog: MatDialog,
+    private tarefasService: TarefasService,
+    private snackBar: MatSnackBar // Injeção do MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.buscarListaTarefas();
@@ -99,10 +106,14 @@ export class TarefasComponent implements OnInit {
     if (tarefa.situacao === 'ABERTA' || tarefa.situacao === 'PENDENTE') {
       this.tarefasService.marcarComoConcluida(tarefa.id).subscribe(() => {
         tarefa.situacao = 'CONCLUÍDA';
-        alert(`Tarefa "${tarefa.nome}" marcada como concluída.`);
+        this.snackBar.open(`Tarefa "${tarefa.nome}" marcada como concluída.`, 'Fechar', {
+          duration: 3000,
+        });
       });
     } else {
-      alert('A tarefa não pode ser marcada como concluída.');
+      this.snackBar.open('A tarefa não pode ser marcada como concluída.', 'Fechar', {
+        duration: 3000,
+      });
     }
   }
 
@@ -110,10 +121,14 @@ export class TarefasComponent implements OnInit {
     if (tarefa.situacao === 'ABERTA' || tarefa.situacao === 'CONCLUÍDA') {
       this.tarefasService.marcarComoPendente(tarefa.id).subscribe(() => {
         tarefa.situacao = 'PENDENTE';
-        alert(`Tarefa "${tarefa.nome}" marcada como pendente.`);
+        this.snackBar.open(`Tarefa "${tarefa.nome}" marcada como pendente.`, 'Fechar', {
+          duration: 3000,
+        });
       });
     } else {
-      alert('A tarefa não pode ser marcada como pendente.');
+      this.snackBar.open('A tarefa não pode ser marcada como pendente.', 'Fechar', {
+        duration: 3000,
+      });
     }
   }
 
