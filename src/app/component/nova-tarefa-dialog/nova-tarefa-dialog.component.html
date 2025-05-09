@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Cadastrar Nova Tarefa</h1>
+<div mat-dialog-content>
+  <form>
+    <!-- Campo Nome -->
+    <mat-form-field style="width: 100%;">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="novaTarefa.nome" name="nome" required />
+    </mat-form-field>
+
+    <!-- Campo Prioridade -->
+    <mat-form-field style="width: 100%;">
+      <mat-label>Prioridade</mat-label>
+      <mat-select [(ngModel)]="novaTarefa.prioridade" name="prioridade">
+        <mat-option value="BAIXA">Baixa</mat-option>
+        <mat-option value="MEDIA">Média</mat-option>
+        <mat-option value="ALTA">Alta</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo Data Prevista de Conclusão -->
+    <mat-form-field style="width: 100%;">
+      <mat-label>Data Prevista de Conclusão</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="novaTarefa.dataPrevistaConclusao" name="dataPrevistaConclusao" required />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Campo Descrição -->
+    <mat-form-field style="width: 100%;">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput [(ngModel)]="novaTarefa.descricao" name="descricao"></textarea>
+    </mat-form-field>
+
+    <!-- Campo Situação -->
+    <mat-form-field style="width: 100%;">
+      <mat-label>Situação</mat-label>
+      <input matInput [(ngModel)]="novaTarefa.situacao" name="situacao" disabled value="ABERTA" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+</div>
