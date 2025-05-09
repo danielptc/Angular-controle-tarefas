@@ -52,7 +52,7 @@ export class TarefasComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private tarefasService: TarefasService,
-    private snackBar: MatSnackBar // Injeção do MatSnackBar
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {

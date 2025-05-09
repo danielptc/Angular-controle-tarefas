@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>Cadastrar Nova Tarefa</h1>
   <div mat-dialog-content>
     <form #tarefaForm="ngForm">
-      <!-- Campo Nome -->
+      
       <mat-form-field appearance="fill">
         <mat-label>Nome</mat-label>
         <input matInput [(ngModel)]="novaTarefa.nome" name="nome" required />
@@ -11,7 +11,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Campo Prioridade -->
       <mat-form-field appearance="fill">
         <mat-label>Prioridade</mat-label>
         <mat-select [(ngModel)]="novaTarefa.prioridade" name="prioridade" required>
@@ -24,7 +23,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Campo Data Prevista de Conclusão -->
       <mat-form-field appearance="fill">
         <mat-label>Data Prevista de Conclusão</mat-label>
         <input matInput [matDatepicker]="picker" [(ngModel)]="novaTarefa.dataPrevistaConclusao" name="dataPrevistaConclusao" required />
@@ -35,7 +33,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Campo Descrição -->
       <mat-form-field appearance="fill">
         <mat-label>Descrição</mat-label>
         <textarea matInput [(ngModel)]="novaTarefa.descricao" name="descricao"></textarea>

@@ -2,50 +2,44 @@
   <button mat-raised-button color="primary" (click)="abrirDialogNovaTarefa()">Cadastrar Nova Tarefa</button>
 </div>
 
-<!-- Campo de filtro -->
 <div>
   <input
     matInput
-    placeholder="Filtrar por coluna"
+    placeholder="Filtrar por Nome, prioridade ou situação"
     (keyup)="applyFilter($event)"
     style="margin-bottom: 10px; width: 100%;"
   />
 </div>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
-  <!-- Nome Column -->
+  
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
     <td mat-cell *matCellDef="let tarefa"> {{ tarefa.nome }} </td>
   </ng-container>
 
-  <!-- Prioridade Column -->
   <ng-container matColumnDef="prioridade">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Prioridade </th>
     <td mat-cell *matCellDef="let tarefa"> {{ tarefa.prioridade }} </td>
   </ng-container>
 
-  <!-- Situação Column -->
   <ng-container matColumnDef="situacao">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Situação </th>
     <td mat-cell *matCellDef="let tarefa"> {{ tarefa.situacao }} </td>
   </ng-container>
 
-  <!-- Ações Column -->
   <ng-container matColumnDef="acoes">
     <th mat-header-cell *matHeaderCellDef> Ações </th>
     <td mat-cell *matCellDef="let tarefa">
-      <!-- Ícone de edição -->
+      
       <button mat-icon-button color="primary" (click)="editarTarefa(tarefa)">
         <mat-icon>edit</mat-icon>
       </button>
 
-      <!-- Ícone de exclusão -->
       <button mat-icon-button color="warn" (click)="excluirTarefa(tarefa)">
         <mat-icon>delete</mat-icon>
       </button>
 
-            <!-- Checkbox para marcar como Concluída -->
       <mat-checkbox
         [checked]="tarefa.situacao === 'CONCLUÍDA'"
         (change)="marcarComoConcluida(tarefa)"
@@ -53,7 +47,6 @@
         Concluir
       </mat-checkbox>
 
-      <!-- Checkbox para marcar como Pendente -->
       <mat-checkbox
         [checked]="tarefa.situacao === 'PENDENTE'"
         (change)="marcarComoPendente(tarefa)"
@@ -63,7 +56,6 @@
     </td>
   </ng-container>
 
-  <!-- Header and Row Definitions -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
