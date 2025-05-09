@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -20,6 +20,11 @@ import { FormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    {provide: DateAdapter, useClass: NativeDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}
   ],
 })
 export class NovaTarefaDialogComponent {
