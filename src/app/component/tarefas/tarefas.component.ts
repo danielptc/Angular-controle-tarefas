@@ -67,7 +67,7 @@ export class TarefasComponent implements OnInit {
   editarTarefa(tarefa: any) {
     const dialogRef = this.dialog.open(NovaTarefaDialogComponent, {
       width: '400px',
-      data: { ...tarefa }, // Passa os dados da tarefa para o dialog
+      data: { ...tarefa }, 
     });
 
     dialogRef.afterClosed().subscribe((tarefaEditada) => {
@@ -88,11 +88,25 @@ export class TarefasComponent implements OnInit {
   }
 
   marcarComoConcluida(tarefa: any) {
-    tarefa.situacao = 'CONCLUÍDA';
+    if (tarefa.situacao === 'ABERTA' || tarefa.situacao === 'PENDENTE') {
+      this.tarefasService.marcarComoConcluida(tarefa.id).subscribe(() => {
+        tarefa.situacao = 'CONCLUÍDA';
+        alert(`Tarefa "${tarefa.nome}" marcada como concluída.`);
+      });
+    } else {
+      alert('A tarefa não pode ser marcada como concluída.');
+    }
   }
 
   marcarComoPendente(tarefa: any) {
-    tarefa.situacao = 'PENDENTE';
+    if (tarefa.situacao === 'ABERTA' || tarefa.situacao === 'CONCLUÍDA') {
+      this.tarefasService.marcarComoPendente(tarefa.id).subscribe(() => {
+        tarefa.situacao = 'PENDENTE';
+        alert(`Tarefa "${tarefa.nome}" marcada como pendente.`);
+      });
+    } else {
+      alert('A tarefa não pode ser marcada como pendente.');
+    }
   }
 
   abrirDialogNovaTarefa() {

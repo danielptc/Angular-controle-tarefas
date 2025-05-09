@@ -44,6 +44,22 @@
       <button mat-icon-button color="warn" (click)="excluirTarefa(tarefa)">
         <mat-icon>delete</mat-icon>
       </button>
+
+            <!-- Checkbox para marcar como Concluída -->
+      <mat-checkbox
+        [checked]="tarefa.situacao === 'CONCLUÍDA'"
+        (change)="marcarComoConcluida(tarefa)"
+        [disabled]="tarefa.situacao !== 'ABERTA' && tarefa.situacao !== 'PENDENTE'">
+        Concluir
+      </mat-checkbox>
+
+      <!-- Checkbox para marcar como Pendente -->
+      <mat-checkbox
+        [checked]="tarefa.situacao === 'PENDENTE'"
+        (change)="marcarComoPendente(tarefa)"
+        [disabled]="tarefa.situacao !== 'ABERTA' && tarefa.situacao !== 'CONCLUÍDA'">
+        Pendente
+      </mat-checkbox>
     </td>
   </ng-container>
 

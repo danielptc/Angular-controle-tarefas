@@ -25,4 +25,12 @@ export class TarefasService {
   putDados(id: number, dados: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, dados);
   }
+
+    marcarComoConcluida(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/concluir`, {});
+  }
+
+  marcarComoPendente(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/pendente`, {});
+  }
 }
