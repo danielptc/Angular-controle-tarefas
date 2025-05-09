@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-tarefas',
@@ -80,11 +81,18 @@ export class TarefasComponent implements OnInit {
   }
 
   excluirTarefa(tarefa: any) {
-    if (confirm(`Tem certeza de que deseja excluir a tarefa "${tarefa.nome}"?`)) {
-      this.tarefasService.deleteTarefa(tarefa.id).subscribe(() => {
-        this.buscarListaTarefas(); 
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { message: `Tem certeza de que deseja excluir a tarefa "${tarefa.nome}"?` },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.tarefasService.deleteTarefa(tarefa.id).subscribe(() => {
+          this.buscarListaTarefas();
+        });
+      }
+    });
   }
 
   marcarComoConcluida(tarefa: any) {
