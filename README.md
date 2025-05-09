@@ -35,3 +35,9 @@ Quando o servidor estiver em execução, abra seu navegador e navegue até http:
 ## Node
 
 Para esse projeto é necessário a versão 18.19.1 (ou superior) do Node
+
+## Outras bibliotecas
+
+```bash
+npm install @angular/common
+```
