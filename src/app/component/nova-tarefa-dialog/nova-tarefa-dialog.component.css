@@ -6,6 +6,12 @@
   height: 100%;
 }
 
+.mat-form-field {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 16px;
+}
+
 mat-dialog-content {
   width: 100%;
   max-width: 500px;

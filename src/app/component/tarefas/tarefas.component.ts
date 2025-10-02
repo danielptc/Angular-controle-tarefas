@@ -11,13 +11,9 @@ import { CommonModule } from '@angular/common';
 import { TarefasService } from './../../services/tarefas.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NovaTarefaDialogComponent } from '../nova-tarefa-dialog/nova-tarefa-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -75,22 +71,31 @@ export class TarefasComponent implements OnInit {
   editarTarefa(tarefa: any) {
     const dialogRef = this.dialog.open(NovaTarefaDialogComponent, {
       width: '400px',
-      data: { ...tarefa }, 
+      data: { ...tarefa },
     });
 
     dialogRef.afterClosed().subscribe((tarefaEditada) => {
       if (tarefaEditada) {
-        this.tarefasService.putDados(tarefaEditada.id, tarefaEditada).subscribe(() => {
-          this.buscarListaTarefas();
-        });
+        this.tarefasService
+          .putDados(tarefaEditada.id, tarefaEditada)
+          .subscribe(() => {
+            this.buscarListaTarefas();
+          });
       }
+
+      this.snackBar.open(`Tarefa editada com sucesso.`, 'Fechar', {
+        duration: 3000,
+        panelClass: ['custom-snackbar-success'],
+      });
     });
   }
 
   excluirTarefa(tarefa: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
-      data: { message: `Tem certeza de que deseja excluir a tarefa "${tarefa.nome}"?` },
+      data: {
+        message: `Tem certeza de que deseja excluir a tarefa "${tarefa.nome}"?`,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -98,6 +103,12 @@ export class TarefasComponent implements OnInit {
         this.tarefasService.deleteTarefa(tarefa.id).subscribe(() => {
           this.buscarListaTarefas();
         });
+
+        this.snackBar.open(
+          `Tarefa "${tarefa.nome}" excluída com sucesso.`,
+          'Fechar',
+          { duration: 3000, panelClass: ['custom-snackbar-success'] }
+        );
       }
     });
   }
@@ -106,14 +117,24 @@ export class TarefasComponent implements OnInit {
     if (tarefa.situacao === 'ABERTA' || tarefa.situacao === 'PENDENTE') {
       this.tarefasService.marcarComoConcluida(tarefa.id).subscribe(() => {
         tarefa.situacao = 'CONCLUÍDA';
-        this.snackBar.open(`Tarefa "${tarefa.nome}" marcada como concluída.`, 'Fechar', {
-          duration: 3000,
-        });
+        this.snackBar.open(
+          `Tarefa "${tarefa.nome}" marcada como concluída.`,
+          'Fechar',
+          {
+            duration: 3000,
+            panelClass: ['custom-snackbar-concluido'],
+          }
+        );
       });
     } else {
-      this.snackBar.open('A tarefa não pode ser marcada como concluída.', 'Fechar', {
-        duration: 3000,
-      });
+      this.snackBar.open(
+        'A tarefa não pode ser marcada como concluída.',
+        'Fechar',
+        {
+          duration: 3000,
+          panelClass: ['custom-snackbar-error'],
+        }
+      );
     }
   }
 
@@ -121,14 +142,24 @@ export class TarefasComponent implements OnInit {
     if (tarefa.situacao === 'ABERTA' || tarefa.situacao === 'CONCLUÍDA') {
       this.tarefasService.marcarComoPendente(tarefa.id).subscribe(() => {
         tarefa.situacao = 'PENDENTE';
-        this.snackBar.open(`Tarefa "${tarefa.nome}" marcada como pendente.`, 'Fechar', {
-          duration: 3000,
-        });
+        this.snackBar.open(
+          `Tarefa "${tarefa.nome}" marcada como pendente.`,
+          'Fechar',
+          {
+            duration: 3000,
+            panelClass: ['custom-snackbar-pendente'],
+          }
+        );
       });
     } else {
-      this.snackBar.open('A tarefa não pode ser marcada como pendente.', 'Fechar', {
-        duration: 3000,
-      });
+      this.snackBar.open(
+        'A tarefa não pode ser marcada como pendente.',
+        'Fechar',
+        {
+          duration: 3000,
+          panelClass: ['custom-snackbar-error'],
+        }
+      );
     }
   }
 
@@ -140,11 +171,9 @@ export class TarefasComponent implements OnInit {
     dialogRef.afterClosed().subscribe((novaTarefa) => {
       if (novaTarefa) {
         this.tarefasService.postDados(novaTarefa).subscribe(() => {
-          this.buscarListaTarefas(); 
+          this.buscarListaTarefas();
         });
       }
     });
   }
 }
-
-

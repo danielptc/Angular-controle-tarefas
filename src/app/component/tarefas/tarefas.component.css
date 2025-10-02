@@ -1,0 +1,8 @@
+.btn-cadastrar-tarefa {
+  background-color: #0e9931 !important; /* cor laranja exemplo */
+  color: #fff !important;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -26,7 +26,7 @@ export class TarefasService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, dados);
   }
 
-    marcarComoConcluida(id: number) {
+  marcarComoConcluida(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/concluir`, {});
   }
 
