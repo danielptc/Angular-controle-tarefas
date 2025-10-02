@@ -1,6 +1,6 @@
 # ControleTarefas
 
-Este projeto foi gerado usando [Angular CLI](https://github.com/angular/angular-cli) versão  19.2.11.
+Este projeto foi gerado usando [Angular CLI](https://github.com/angular/angular-cli) versão  19.2.
 
 
 ## Bibliotecas Angular
@@ -34,7 +34,7 @@ Quando o servidor estiver em execução, abra seu navegador e navegue até http:
 
 ## Node
 
-Para esse projeto é necessário a versão 18.19.1 (ou superior) do Node
+Para esse projeto é necessário a versão 22.12.0 (ou superior) do Node
 
 ## Outras bibliotecas
 
