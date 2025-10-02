@@ -1,0 +1,63 @@
+<div style="margin-bottom: 20px;">
+  <button mat-raised-button color="primary" (click)="abrirDialogNovaTarefa()">Cadastrar Nova Tarefa</button>
+</div>
+
+<div>
+  <input
+    matInput
+    placeholder="Filtrar por Nome, prioridade ou situação"
+    (keyup)="applyFilter($event)"
+    style="margin-bottom: 10px; width: 100%;"
+  />
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+  
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+    <td mat-cell *matCellDef="let tarefa"> {{ tarefa.nome }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="prioridade">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prioridade </th>
+    <td mat-cell *matCellDef="let tarefa"> {{ tarefa.prioridade }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="situacao">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Situação </th>
+    <td mat-cell *matCellDef="let tarefa"> {{ tarefa.situacao }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef> Ações </th>
+    <td mat-cell *matCellDef="let tarefa">
+      
+      <button mat-icon-button color="primary" (click)="editarTarefa(tarefa)">
+        <mat-icon  tooltip="Editar tarefa">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="excluirTarefa(tarefa)" matTooltip="Excluir tarefa">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <mat-checkbox
+        [checked]="tarefa.situacao === 'CONCLUÍDA'"
+        (change)="marcarComoConcluida(tarefa)"
+        [disabled]="tarefa.situacao !== 'ABERTA' && tarefa.situacao !== 'PENDENTE'">
+        Concluir
+      </mat-checkbox>
+
+      <mat-checkbox
+        [checked]="tarefa.situacao === 'PENDENTE'"
+        (change)="marcarComoPendente(tarefa)"
+        [disabled]="tarefa.situacao !== 'ABERTA' && tarefa.situacao !== 'CONCLUÍDA'">
+        Pendente
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
